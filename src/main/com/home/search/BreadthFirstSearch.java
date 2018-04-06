@@ -3,16 +3,22 @@ package com.home.search;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
-public class BreadthFirstSearch extends NodeSearchCommon {
+public class BreadthFirstSearch<T> extends NodeSearchCommon<T> {
 
-    private static Deque<String> queue = new ArrayDeque<>();
+    private Deque<T> queue = new ArrayDeque<>();
 
-    public BreadthFirstSearch() {
-        super(queue);
+    @Override
+    protected boolean isEmpty() {
+        return queue.isEmpty();
     }
 
     @Override
-    public void addTo(String fromNode) {
+    protected T remove() {
+        return queue.remove();
+    }
+
+    @Override
+    public void add(T fromNode) {
         queue.add(fromNode);
     }
 }

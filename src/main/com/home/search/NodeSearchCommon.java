@@ -1,29 +1,29 @@
 package com.home.search;
 
-import com.home.dto.EdgeDTO;
+import com.home.dto.Edge;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
-import static java.util.stream.Collectors.toSet;
+import static java.util.stream.Collectors.toList;
 
-public abstract class NodeSearchCommon implements NodeSearch {
-
-    private Deque<String> nodeQueue;
-
-    public NodeSearchCommon(Deque<String> nodeQueue) {
-        this.nodeQueue = nodeQueue;
-    }
+public abstract class NodeSearchCommon<T> implements NodeSearch<T> {
 
     @Override
-    public boolean isPathExists(String fromNode, String toNode, List<EdgeDTO> graphNodes) {
+    public boolean isPathExists(T fromNode, T toNode, List<Edge> graphNodes) {
 
         System.out.println("From node: " + fromNode + " To node: " + toNode);
-        Set<String> visitedNodes = new HashSet<>();
+        Set<T> visitedNodes = new HashSet<>();
 
-        addTo(fromNode);
+        add(fromNode);
 
-        while (!nodeQueue.isEmpty()) {
-            String currentNode = nodeQueue.remove();
+        while (!isEmpty()) {
+            T currentNode = remove();
+
+            if (currentNode.equals(toNode)) {
+                return true;
+            }
 
             if (isNodeVisited(visitedNodes, currentNode)) {
                 continue;
@@ -32,26 +32,26 @@ public abstract class NodeSearchCommon implements NodeSearch {
             visitedNodes.add(currentNode);
             System.out.println("======   " + currentNode);
 
-            if (currentNode.equals(toNode)) {
-                return true;
-            }
-
-            for (String neighbourNode : getNeighbourNodes(currentNode, graphNodes)) {
-                addTo(neighbourNode);
+            for (T neighbourNode : getNeighbourNodes(currentNode, graphNodes)) {
+                add(neighbourNode);
             }
         }
         return false;
     }
 
-    private boolean isNodeVisited(Set<String> visitedNodes, String currentNode) {
+    private boolean isNodeVisited(Set<T> visitedNodes, T currentNode) {
         return visitedNodes.contains(currentNode);
     }
 
-    protected Set<String> getNeighbourNodes(String airport, List<EdgeDTO> routes) {
-        return routes.stream().filter(route -> route.getFromNode().equals(airport))
-                .map(route -> route.getToNode())
-                .collect(toSet());
+    protected List<T> getNeighbourNodes(T node, List<Edge> routes) {
+        return routes.stream().filter(route -> route.getFromNode().equals(node))
+                .map(route -> (T) route.getToNode())
+                .collect(toList());
     }
 
-    protected abstract void addTo(String node);
+    protected abstract boolean isEmpty();
+
+    protected abstract T remove();
+
+    protected abstract void add(T node);
 }

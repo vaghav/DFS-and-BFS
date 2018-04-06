@@ -3,16 +3,22 @@ package com.home.search;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
-public class DepthFirstSearch extends NodeSearchCommon {
+public class DepthFirstSearch<T> extends NodeSearchCommon<T> {
 
-    private static Deque<String> stack = new ArrayDeque<>();
+    private Deque<T> stack = new ArrayDeque<>();
 
-    public DepthFirstSearch() {
-        super(stack);
+    @Override
+    protected boolean isEmpty() {
+        return stack.isEmpty();
     }
 
     @Override
-    protected void addTo(String fromNode) {
+    protected T remove() {
+        return stack.pop();
+    }
+
+    @Override
+    protected void add(T fromNode) {
         stack.push(fromNode);
     }
 }

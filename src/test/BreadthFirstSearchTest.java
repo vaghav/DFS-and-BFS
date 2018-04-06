@@ -1,4 +1,4 @@
-import com.home.dto.EdgeDTO;
+import com.home.dto.Edge;
 import com.home.search.BreadthFirstSearch;
 import org.junit.Assert;
 import org.junit.Test;
@@ -7,7 +7,7 @@ import java.util.List;
 
 public class BreadthFirstSearchTest {
 
-    private BreadthFirstSearch breadthSearch = new BreadthFirstSearch();
+    private BreadthFirstSearch<String> breadthSearch = new BreadthFirstSearch<>();
 
     @Test
     public void shouldAssertRouteExistence() {
@@ -22,8 +22,8 @@ public class BreadthFirstSearchTest {
     public void shouldAssertRouteAbsence() {
         //given-when
         boolean isRouteExists = breadthSearch.isPathExists("WRO", "MAD",
-                List.of(new EdgeDTO("WRO", "GRO"), new EdgeDTO("WAW", "WRO"), new EdgeDTO("GRO", "WAW"),
-                        new EdgeDTO("WRO", "BCN")));
+                List.of(new Edge("WRO", "GRO"), new Edge("WAW", "WRO"), new Edge("GRO", "WAW"),
+                        new Edge("WRO", "BCN")));
 
         //then
         Assert.assertFalse(isRouteExists);

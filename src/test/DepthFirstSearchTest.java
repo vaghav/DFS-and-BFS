@@ -1,4 +1,4 @@
-import com.home.dto.EdgeDTO;
+import com.home.dto.Edge;
 import com.home.search.DepthFirstSearch;
 import org.junit.Assert;
 import org.junit.Test;
@@ -8,7 +8,7 @@ import java.util.List;
 
 public class DepthFirstSearchTest {
 
-    private DepthFirstSearch depthFirstSearch = new DepthFirstSearch();
+    private DepthFirstSearch<String> depthFirstSearch = new DepthFirstSearch<>();
 
     @Test
     public void shouldAssertRouteExistence() {
@@ -23,8 +23,8 @@ public class DepthFirstSearchTest {
     public void shouldAssertRouteAbsence() {
         //given-when
         boolean isRouteExists = depthFirstSearch.isPathExists("WRO", "MAD",
-                List.of(new EdgeDTO("WRO", "GRO"), new EdgeDTO("WAW", "WRO"),
-                new EdgeDTO("GRO", "WAW"), new EdgeDTO("WRO", "BCN")));
+                List.of(new Edge("WRO", "GRO"), new Edge("WAW", "WRO"),
+                new Edge("GRO", "WAW"), new Edge("WRO", "BCN")));
 
         //then
         Assert.assertFalse(isRouteExists);
