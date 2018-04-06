@@ -12,7 +12,7 @@ public class BreadthFirstSearchTest {
     @Test
     public void shouldAssertRouteExistence() {
         //given-when
-        boolean isRouteExists = breadthSearch.isPathExists("WRO", "MAD", UtilTest.createRoutes());
+        boolean isRouteExists = breadthSearch.isPathExists("A", "F", UtilTest.createRoutes());
 
         //then
         Assert.assertTrue(isRouteExists);

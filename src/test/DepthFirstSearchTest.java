@@ -13,7 +13,7 @@ public class DepthFirstSearchTest {
     @Test
     public void shouldAssertRouteExistence() {
         //given-when
-        boolean isRouteExists = depthFirstSearch.isPathExists("WRO", "MAD", UtilTest.createRoutes());
+        boolean isRouteExists = depthFirstSearch.isPathExists("A", "F", UtilTest.createRoutes());
 
         //then
         Assert.assertTrue(isRouteExists);
